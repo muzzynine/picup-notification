@@ -17,11 +17,6 @@ module.exports = {
 
 
     DB: {
-        MONGO: {
-            HOST: 'mongodb://localhost',
-            PORT: '27017',
-            NAME: 'sync'
-        },
         MYSQL: {
             HOST: 'bigfrfog-picup.cpcmirt0kyjt.ap-northeast-2.rds.amazonaws.com',
             DATABASE: 'picup',
