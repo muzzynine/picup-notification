@@ -17,11 +17,6 @@ module.exports = {
 
 
     DB: {
-        MONGO: {
-            HOST: 'mongodb://localhost',
-            PORT: '27017',
-            NAME: 'sync'
-        },
         MYSQL: {
             HOST: 'bigfrfog-picup.cpcmirt0kyjt.ap-northeast-2.rds.amazonaws.com',
             DATABASE: 'picup',
@@ -33,7 +28,7 @@ module.exports = {
     },
 
     AMQP : {
-        amqpAddr: "amqp://localhost:5672",
+        amqpAddr: "amqp://54.178.171.194:5672",
 
         QUEUE : {
             name : "picup"
