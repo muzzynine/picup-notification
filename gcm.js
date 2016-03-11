@@ -30,7 +30,6 @@ exports.send = function(type, message, uids, db, fn){
                     log.err("AMQPWorker#gcm message push failed", {err: err});
                     return fn(err);
                 }
-                log.info(result);
                 fn(null, result);
             });
         } else {
