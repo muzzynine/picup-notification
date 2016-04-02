@@ -3,7 +3,6 @@
  */
 var GroupScheme = require('./scheme').GROUP;
 var AppError = require('../lib/appError');
-var config = require('../config');
 var Promise = require('bluebird');
 
 module.exports = function(connection){

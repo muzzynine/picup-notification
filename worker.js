@@ -3,7 +3,7 @@
  */
 var amqp = require('amqplib/callback_api');
 var gcm = require('./gcm');
-var config = require('./config');
+var config = require('./config/config');
 var bunyan = require('bunyan');
 var log = bunyan.getLogger('AMQPLogger');
 
@@ -15,7 +15,7 @@ module.exports = function(app) {
 
     amqp.connect(amqpUrl, function (err, conn) {
         if (err) {
-            log.err("AMQPWorker#connect failed", {err: err});
+            log.error("AMQPWorker#connect failed", {err: err});
             throw err;
         }
         log.info("AMQP Message Queue Connected");
