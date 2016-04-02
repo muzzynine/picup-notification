@@ -4,7 +4,7 @@
  * Created by impyeong-gang on 11/4/15.
  */
 var gcm = require('node-gcm');
-var config = require('./config');
+var config = require('./config/config');
 var server_access_key = config.GCM.ACCESS_KEY;
 var bunyan = require('bunyan');
 var log = bunyan.getLogger('AMQPLogger');
