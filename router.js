@@ -33,19 +33,21 @@ router.post('/registration', function(req, res){
 
     var User = req.app.get('models').user;
 
-    return User.findUserById(uid).then(function (user) {
+    User.findUserById(uid).then(function (user) {
         return User.setPushRegistration(user, registrationId).then(function (reg) {
             res.status(200);
             res.json({
                 uid: user.id,
                 registration_id: reg.registration_id
             });
-        }).catch(function (err) {
-            res.status(err.errorCode);
-            res.json(err);
         })
     }).catch(function (err) {
-        res.status(err.errorCode);
-        res.json(err);
-    })
+	if(err.isAppError){
+	    res.status(err.errorCode);
+	    res.json(err);
+	} else {
+	    res.status(500);
+	    res.json({});
+	}
+    });
 });

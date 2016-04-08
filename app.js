@@ -1,12 +1,19 @@
 /**
  * Created by impyeong-gang on 12/7/15.
  */
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var logging = require('./lib/logger');
 var bunyan = require('bunyan');
 var log = bunyan.getLogger('MainLogger');
 var logger = require('morgan');
+
+
+process.on('uncaughtException', function(err){
+    log.fatal("UncaughtExceptionEmit", {err : err.toString()}, {stack : err.stack});
+});
+
 
 var app = express();
 
