@@ -27,7 +27,7 @@ module.exports = function(connection){
 		}
 		reject(AppError.throwAppError(500, err.toString()));
             });
-        })
+        });
     };
 
     User.setPushRegistration = function(user, registration){
@@ -90,7 +90,7 @@ module.exports = function(connection){
 		if(err.isAppError){
 		    return reject(err);
 		}
-		reject(AppError.throwAppError(500, err.toString());
+		reject(AppError.throwAppError(500, err.toString()));
             });
         });
     };
