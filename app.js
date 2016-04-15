@@ -22,7 +22,6 @@ if(process.env.NODE_ENV === "production"){
 }
 
 app.set('models', require('./model_migration'));
-
 GCMWorker.init(app.get('models'));
 GCMWorker.connect();
 
