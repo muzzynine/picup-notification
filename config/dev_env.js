@@ -28,7 +28,7 @@ module.exports = {
     },
 
     AMQP : {
-        amqpAddr: "amqp://54.178.171.194:5672",
+        amqpAddr: "amqp://localhost:5672",
 
         QUEUE : {
             name : "picup"

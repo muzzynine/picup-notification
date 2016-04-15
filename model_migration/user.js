@@ -18,14 +18,16 @@ module.exports = function(connection){
                 }
             }).then(function(user){
                 if(!user){
-                    return reject(AppError.throwAppError(404));
+		    throw AppError.throwAppError(404, "Not exist user");
                 }
-                return resolve(user);
+                resolve(user);
             }).catch(function(err){
-                log.err("User#findUserById/DB(RDBMS) Internal error", {err: err});
-                return reject(AppError.throwAppError(500));
+		if(err.isAppError){
+		    return reject(err);
+		}
+		reject(AppError.throwAppError(500, err.toString()));
             });
-        })
+        });
     };
 
     User.setPushRegistration = function(user, registration){
@@ -34,27 +36,26 @@ module.exports = function(connection){
                 if(reg){
                     if(reg.registration_id !== registration){
                         reg.registration_id = registration;
-                        reg.save().then(function(){
-                            return resolve(reg);
-                        }).catch(function(err){
-                            log.err("User#setPushRegistration/DB(RDBMS) Internal error", {err: err});
-                            return reject(AppError.throwAppError(500));
-                        })
+                        return reg.save().then(function(){
+                            resolve(reg);
+                        });
                     } else {
                         resolve(reg);
                     }
                 } else {
-                    user.createPushRegistration({
+                    return user.createPushRegistration({
                         registration_id : registration
                     }).then(function(reg){
                         resolve(reg);
-                    }).catch(function(err){
-                        log.err("User#setPushRegistration/DB(RDBMS) Internal error", {err: err});
-                        reject(AppError.throwAppError(500));
                     })
                 }
-            })
-        })
+            }).catch(function(err){
+		if(err.isAppError){
+		    return reject(err);
+		}
+		reject(AppError.throwAppError(500, err.toString()));
+	    });
+        });
     };
 
 
@@ -74,16 +75,22 @@ module.exports = function(connection){
                         return resolve(registrationIds);
                     }
                     var user = ulist.splice(0, 1)[0];
-                    user.getPushRegistration().then(function (reg) {
-                        registrationIds.push(reg.registration_id);
-                        setTimeout(parsingUsersRegId, 0);
+                    return user.getPushRegistration().then(function (reg) {
+			//유저의 Registration 정보가 없으면 해당 유저에게는 메시지 보내지 않음
+			if(reg){
+                            registrationIds.push(reg.registration_id);
+			}
+			setTimeout(parsingUsersRegId, 0);
                     }).catch(function (err) {
+			throw err;
                         //nothing to do..
                     });
                 })();
             }).catch(function(err) {
-                log.err("User#getUsersRegistrationId/DB(RDBMS) Internal error", {err: err});
-                reject(AppError.throwAppError(500));
+		if(err.isAppError){
+		    return reject(err);
+		}
+		reject(AppError.throwAppError(500, err.toString()));
             });
         });
     };
