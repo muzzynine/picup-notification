@@ -31,7 +31,7 @@ module.exports = {
         amqpAddr: "amqp://54.178.171.194:5672",
 
         QUEUE : {
-            name : "picup"
+            name : "picup-notification-gcm-1"
         }
     }
 };
