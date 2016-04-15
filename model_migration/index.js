@@ -27,7 +27,8 @@ var models = [
     'auth',
     'accessToken',
     'client',
-    'pushRegistration'
+    'pushRegistration',
+    'ban'
 ];
 
 models.forEach(function(model){
