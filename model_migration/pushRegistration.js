@@ -6,20 +6,20 @@ var Promise = require('bluebird');
 var PushRegScheme = require('./scheme').PUSH_REGISTRATION;
 
 module.exports = function(connection){
-    var Push =  connection.define(PushRegScheme.TABLE, PushRegScheme.SCHEME);
+    var Push =  connection.define(PushRegScheme.TABLE, PushRegScheme.SCHEME, PushRegScheme.OPTION);
 
     Push.setRegistration = function(regId){
-        return new Promise(function(resolve, reject){
-            Push.create({
-                registration_id : regId
-            }).then(function(created){
-                resolve(created);
-            }).catch(function(err){
-                reject(err);
-            })
+        return Push.create({
+            registrationId : regId
+        }).then(function(created){
+            return created;
         });
     };
 
     return Push;
 
 };
+
+
+
+

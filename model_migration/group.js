@@ -2,11 +2,9 @@
  * Created by impyeong-gang on 1/11/16.
  */
 var GroupScheme = require('./scheme').GROUP;
-var AppError = require('../lib/appError');
-var Promise = require('bluebird');
 
 module.exports = function(connection){
-    var Group = connection.define(GroupScheme.TABLE, GroupScheme.SCHEME);
+    var Group = connection.define(GroupScheme.TABLE, GroupScheme.SCHEME, GroupScheme.OPTION);
 
     return Group;
 };
