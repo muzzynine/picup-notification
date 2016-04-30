@@ -8,7 +8,7 @@ var bunyan = require('bunyan');
 var log = bunyan.getLogger('DataModelLogger');
 
 module.exports = function(connection){
-    var User = connection.define(UserShceme.TABLE, UserShceme.SCHEME);
+    var User = connection.define(UserShceme.TABLE, UserShceme.SCHEME, UserShceme.OPTION);
 
     User.findUserById = function(uid){
         return new Promise(function(resolve, reject){
@@ -34,8 +34,8 @@ module.exports = function(connection){
         return new Promise(function(resolve, reject){
             user.getPushRegistration().then(function(reg){
                 if(reg){
-                    if(reg.registration_id !== registration){
-                        reg.registration_id = registration;
+                    if(reg.registrationId !== registration){
+                        reg.registrationId = registration;
                         return reg.save().then(function(){
                             resolve(reg);
                         });
@@ -44,7 +44,7 @@ module.exports = function(connection){
                     }
                 } else {
                     return user.createPushRegistration({
-                        registration_id : registration
+                        registrationId : registration
                     }).then(function(reg){
                         resolve(reg);
                     })
@@ -78,7 +78,7 @@ module.exports = function(connection){
                     return user.getPushRegistration().then(function (reg) {
 			//유저의 Registration 정보가 없으면 해당 유저에게는 메시지 보내지 않음
 			if(reg){
-                            registrationIds.push(reg.registration_id);
+                            registrationIds.push(reg.registrationId);
 			}
 			setTimeout(parsingUsersRegId, 0);
                     }).catch(function (err) {

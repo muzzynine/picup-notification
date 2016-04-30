@@ -7,15 +7,15 @@
 var Promise = require('bluebird');
 var gcm = require('node-gcm');
 var config = require('./config/config');
-var server_access_key = config.GCM.ACCESS_KEY;
 var bunyan = require('bunyan');
 var log = bunyan.getLogger('AMQPLogger');
 var AppError = require('./lib/appError');
 
+var SERVER_ACCESS_KEY = config.GCM.ACCESS_KEY;
 var MAX_SEND_AT_A_TIME = 700;
 var RETRY_NUMBER = 3;
 
-var sender = new gcm.Sender(server_access_key);
+var sender = new gcm.Sender(SERVER_ACCESS_KEY);
 
 exports.send = function(type, message, uids, db){
     return new Promise(function(resolve, reject){
