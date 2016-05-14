@@ -18,7 +18,7 @@ module.exports = {
 
     DB: {
         MYSQL: {
-            HOST: 'bigfrfog-picup.cpcmirt0kyjt.ap-northeast-2.rds.amazonaws.com',
+            HOST: 'picup.cluster-cqm2majqgqx4.ap-northeast-1.rds.amazonaws.com',
             DATABASE: 'picup',
             PROTOCOL: 'mysql',
             PORT: 3306,
@@ -27,11 +27,21 @@ module.exports = {
         }
     },
 
-    AMQP : {
-        amqpAddr: "amqp://54.178.171.194:5672",
+    AWS : {
+	region : 'ap-northeast-1'
+    },
 
-        QUEUE : {
-            name : "picup-notification-gcm-1"
-        }
+
+    MQ : {
+	awsConfig : {
+	    region : 'ap-northeast-1'
+	},
+	queueName : 'picup-mq',
+	queueUrl : 'https://sqs.ap-northeast-1.amazonaws.com/063860250091/picup-mq',
+	maxInFlight : 1,
+	receiveBatchSize : 1,
+	bodyFormat : 'json'
     }
+
+
 };
