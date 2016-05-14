@@ -38,7 +38,7 @@ router.post('/registration', function(req, res){
             res.status(200);
             res.json({
                 uid: user.id,
-                registration_id: reg.registration_id
+                registration_id: reg.registrationId
             });
         })
     }).catch(function (err) {
