@@ -30,7 +30,7 @@ app.set('models', require('./model_migration'));
 
 MQ.init(config.MQ, app.get('models'));
 MQ.registerReceive(function(msg, db){
-    log.info("#MQ message info" {msg : msg.body});
+    log.info("#MQ message info", {msg : msg.body});
     var type = msg.body.type;
     var uids = msg.body.uids;
     var message = type === "notification" ? msg.body.message : msg.body.gid;
